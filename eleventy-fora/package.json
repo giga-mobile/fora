@@ -1,0 +1,25 @@
+{
+  "name": "@fora/eleventy-plugin-fora",
+  "version": "1.0.0",
+  "description": "Eleventy (11ty) plugin for Fora comments — the fastest embeddable comment system",
+  "main": "plugin.js",
+  "keywords": [
+    "eleventy",
+    "11ty",
+    "eleventy-plugin",
+    "comments",
+    "fora",
+    "giga",
+    "cloudflare"
+  ],
+  "license": "MIT",
+  "author": "Giga Mobile",
+  "homepage": "https://giga.mobile",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/giga-mobile/fora"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

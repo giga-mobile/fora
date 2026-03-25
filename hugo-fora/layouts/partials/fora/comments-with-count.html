@@ -1,0 +1,52 @@
+{{/*
+  Fora Comments with build-time count — Hugo partial.
+  
+  Uses Hugo's resources.GetRemote to fetch comment count at build time.
+  Falls back gracefully if the count API is unreachable.
+  
+  Usage:
+    {{ partial "fora/comments-with-count.html" (dict
+        "siteKey" "your-site-key"
+        "pageId" .RelPermalink
+        "pageTitle" .Title
+    ) }}
+*/}}
+
+{{- $siteKey := .siteKey -}}
+{{- $pageId := .pageId | default "" -}}
+{{- $pageTitle := .pageTitle | default "" -}}
+{{- $theme := .theme | default "auto" -}}
+{{- $containerId := .containerId | default "fora-comments" -}}
+{{- $origin := .origin | default "https://giga.mobile" -}}
+{{- $features := .features | default "" -}}
+
+{{- $count := 0 -}}
+{{- $hasCount := false -}}
+{{- if $siteKey -}}
+  {{- $countUrl := printf "%s/api/embed/count?site_key=%s&page_id=%s" $origin (urlquery $siteKey) (urlquery $pageId) -}}
+  {{- $countRes := resources.GetRemote $countUrl -}}
+  {{- if $countRes -}}
+    {{- $countData := transform.Unmarshal $countRes -}}
+    {{- if $countData -}}
+      {{- $count = int ($countData.count | default 0) -}}
+      {{- $hasCount = true -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<div id="{{ $containerId }}">
+  {{- if $hasCount -}}
+  <div class="fora-count-badge" aria-label="{{ $count }} comments">
+    💬 {{ $count }} comment{{- if ne $count 1 }}s{{ end }}
+  </div>
+  {{- end -}}
+</div>
+
+<script src="{{ $origin }}/embed.js"
+  data-site-key="{{ $siteKey }}"
+  {{- if $pageId }} data-page-id="{{ $pageId }}" {{- end }}
+  {{- if $pageTitle }} data-page-title="{{ $pageTitle }}" {{- end }}
+  data-theme="{{ $theme }}"
+  data-container-id="{{ $containerId }}"
+  {{- if $features }} data-features="{{ $features }}" {{- end }}
+></script>

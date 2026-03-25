@@ -1,0 +1,54 @@
+{{/*
+  Fora Comments — Hugo partial template.
+  
+  Usage:
+    {{ partial "fora/comments.html" (dict "siteKey" "your-site-key") }}
+  
+  With options:
+    {{ partial "fora/comments.html" (dict
+        "siteKey" "your-site-key"
+        "pageId" .RelPermalink
+        "pageTitle" .Title
+        "theme" "auto"
+        "containerId" "fora-comments"
+        "accent" "#8b5cf6"
+    ) }}
+  
+  With build-time count:
+    {{ partial "fora/comments-with-count.html" (dict
+        "siteKey" "your-site-key"
+        "origin" "https://giga.mobile"
+    ) }}
+*/}}
+
+{{- $siteKey := .siteKey -}}
+{{- $pageId := .pageId | default "" -}}
+{{- $pageTitle := .pageTitle | default "" -}}
+{{- $theme := .theme | default "auto" -}}
+{{- $containerId := .containerId | default "fora-comments" -}}
+{{- $origin := .origin | default "https://giga.mobile" -}}
+{{- $features := .features | default "" -}}
+{{- $accent := .accent | default "" -}}
+{{- $bg := .bg | default "" -}}
+{{- $surface := .surface | default "" -}}
+{{- $text := .text | default "" -}}
+{{- $font := .font | default "" -}}
+{{- $radius := .radius | default "" -}}
+
+<div id="{{ $containerId }}">
+</div>
+
+<script src="{{ $origin }}/embed.js"
+  data-site-key="{{ $siteKey }}"
+  {{- if $pageId }} data-page-id="{{ $pageId }}" {{- end }}
+  {{- if $pageTitle }} data-page-title="{{ $pageTitle }}" {{- end }}
+  data-theme="{{ $theme }}"
+  data-container-id="{{ $containerId }}"
+  {{- if $features }} data-features="{{ $features }}" {{- end }}
+  {{- if $accent }} data-accent="{{ $accent }}" {{- end }}
+  {{- if $bg }} data-bg="{{ $bg }}" {{- end }}
+  {{- if $surface }} data-surface="{{ $surface }}" {{- end }}
+  {{- if $text }} data-text="{{ $text }}" {{- end }}
+  {{- if $font }} data-font="{{ $font }}" {{- end }}
+  {{- if $radius }} data-radius="{{ $radius }}" {{- end }}
+></script>

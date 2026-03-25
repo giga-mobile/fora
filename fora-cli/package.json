@@ -1,0 +1,21 @@
+{
+  "name": "create-fora",
+  "version": "1.0.0",
+  "description": "CLI quickstart for Fora comments — the fastest embeddable comment system",
+  "bin": {
+    "create-fora": "./cli.js",
+    "fora": "./cli.js"
+  },
+  "type": "module",
+  "keywords": ["fora", "comments", "cli", "astro", "hugo", "jekyll", "11ty", "cloudflare"],
+  "license": "MIT",
+  "author": "Giga Mobile",
+  "homepage": "https://giga.mobile",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/giga-mobile/fora"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

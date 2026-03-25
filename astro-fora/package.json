@@ -1,0 +1,35 @@
+{
+  "name": "astro-fora",
+  "version": "1.0.0",
+  "description": "Fora comments integration for Astro — the fastest embeddable comment system, built on Cloudflare's edge.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./astro": "./src/ForaComments.astro"
+  },
+  "files": [
+    "src/"
+  ],
+  "keywords": [
+    "astro-component",
+    "withastro",
+    "astro-integration",
+    "comments",
+    "fora",
+    "giga",
+    "cloudflare",
+    "discussion",
+    "ui"
+  ],
+  "peerDependencies": {
+    "astro": "^3.0.0 || ^4.0.0 || ^5.0.0"
+  },
+  "homepage": "https://giga.mobile",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/giga-mobile/fora"
+  },
+  "license": "MIT",
+  "author": "Giga Mobile"
+}
