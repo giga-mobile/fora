@@ -1,5 +1,5 @@
 {
-  "name": "@fora/eleventy-plugin-fora",
+  "name": "fora-eleventy-plugin",
   "version": "1.0.0",
   "description": "Eleventy (11ty) plugin for Fora comments — the fastest embeddable comment system",
   "main": "plugin.js",
