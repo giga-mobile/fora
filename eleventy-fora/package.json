@@ -1,7 +1,7 @@
 {
   "name": "fora-eleventy-plugin",
   "version": "1.0.0",
-  "description": "Eleventy (11ty) plugin for Fora comments — the fastest embeddable comment system",
+  "description": "Eleventy (11ty) plugin for Fora comments — the fastest embeddable comment system, built on Cloudflare's edge.",
   "main": "plugin.js",
   "keywords": [
     "eleventy",
