@@ -1,6 +1,6 @@
 {
   "name": "create-fora",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "CLI quickstart for Fora comments — the fastest embeddable comment system, built on Cloudflare's edge.",
   "bin": {
     "create-fora": "./cli.js",

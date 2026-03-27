@@ -77,12 +77,18 @@ function detectFramework() {
     if (deps.svelte || deps['@sveltejs/kit']) return 'svelte';
     if (deps.hugo) return 'hugo';
   } catch {}
+  // Haskell/Hakyll detection
+  try {
+    if (existsSync('hakyll-site.cabal') || existsSync('stack.yaml')) return 'hakyll';
+    const cabalFiles = readdirSync('.').filter(f => f.endsWith('.cabal'));
+    if (cabalFiles.length > 0) return 'hakyll';
+  } catch {}
   return 'html';
 }
 
 function frameworkLabel(fw) {
   const labels = {
-    astro: 'Astro', nextjs: 'Next.js', hugo: 'Hugo', jekyll: 'Jekyll',
+    astro: 'Astro', nextjs: 'Next.js', hugo: 'Hugo', jekyll: 'Jekyll', hakyll: 'Hakyll',
     '11ty': 'Eleventy (11ty)', react: 'React', vue: 'Vue', svelte: 'Svelte', html: 'Plain HTML'
   };
   return labels[fw] || fw;
@@ -162,6 +168,7 @@ async function cmdQuickstartAnon() {
     { label: `React${detected === 'react' ? detectedLabel : ''}`, value: 'react' },
     { label: `Vue${detected === 'vue' ? detectedLabel : ''}`, value: 'vue' },
     { label: `Svelte${detected === 'svelte' ? detectedLabel : ''}`, value: 'svelte' },
+    { label: `Hakyll${detected === 'hakyll' ? detectedLabel : ''}`, value: 'hakyll' },
     { label: 'Plain HTML', value: 'html' }
   ];
 
@@ -193,9 +200,8 @@ async function cmdQuickstartAnon() {
   console.log('━'.repeat(50));
   console.log(`\n📋 Paste this into your ${frameworkLabel(frameworkChoice.value)} project:\n`);
   console.log(data.snippet);
-  console.log('\n━'.repeat(50));
-  console.log('\n📖 Docs: https://giga.mobile/docs');
-  console.log('💬 Support: https://discord.gg/fora\n');
+  console.log('\n' + '━'.repeat(50));
+  console.log('\n📖 Docs: https://giga.mobile/docs/hakyll');
   console.log('💡 Run "npx fora login" to enable multi-site management, billing, and team features.\n');
 }
 
@@ -252,6 +258,7 @@ async function cmdQuickstartAuth() {
     { label: `React${detected === 'react' ? ' (detected)' : ''}`, value: 'react' },
     { label: `Vue${detected === 'vue' ? ' (detected)' : ''}`, value: 'vue' },
     { label: `Svelte${detected === 'svelte' ? ' (detected)' : ''}`, value: 'svelte' },
+    { label: `Hakyll${detected === 'hakyll' ? ' (detected)' : ''}`, value: 'hakyll' },
     { label: 'Plain HTML', value: 'html' }
   ]);
 
@@ -281,9 +288,8 @@ async function cmdQuickstartAuth() {
   console.log('━'.repeat(50));
   console.log(`\n📋 Paste this into your ${frameworkLabel(frameworkChoice.value)} project:\n`);
   console.log(data.snippet);
-  console.log('\n━'.repeat(50));
-  console.log('\n📖 Docs: https://giga.mobile/docs');
-  console.log('💬 Support: https://discord.gg/fora\n');
+  console.log('\n' + '━'.repeat(50));
+  console.log('\n📖 Docs: https://giga.mobile/docs/hakyll');
 }
 
 // ── Status ──
