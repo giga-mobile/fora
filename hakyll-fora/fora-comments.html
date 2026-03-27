@@ -1,0 +1,35 @@
+{-*
+  Fora Comments — Hakyll template.
+
+  Usage in your Hakyll site:
+
+  1. Copy this file to your templates directory (e.g., templates/fora-comments.html)
+  2. Add to your site.hs:
+
+     import Hakyll
+
+     foraContext :: Context String
+     foraContext =
+       constField "fora-site-key" "YOUR_SITE_KEY" <>
+       constField "fora-origin" "https://giga.mobile" <>
+       defaultContext
+
+  3. In your post template (e.g., templates/post.html), add:
+
+     $partial("templates/fora-comments.html")$
+
+  4. Or, for inline use in a Hakyll template:
+
+     $partial("templates/fora-comments.html")$
+
+  The template reads $fora-site-key$ and $fora-origin$ from the context.
+  If $fora-origin$ is not set, it defaults to https://giga.mobile.
+*-$}
+
+<div id="fora-comments"></div>
+
+<script src="$fora-origin$/embed.js"
+  data-site-key="$fora-site-key$"
+  data-theme="auto"
+  data-container-id="fora-comments"
+></script>
