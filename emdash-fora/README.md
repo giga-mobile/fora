@@ -1,6 +1,8 @@
 # emdash-fora
 
-EmDash plugin for [Fora](https://giga.mobile) — the fastest embeddable comment system, sandboxed and secure on Cloudflare's edge.
+[EmDash](https://github.com/emdash-cms/emdash) plugin for [Fora](https://giga.mobile) — the fastest embeddable comment system, sandboxed and secure on Cloudflare's edge.
+
+Adds comments to any [EmDash](https://emdashcms.com/) site. Works with EmDash's [sandboxed plugin architecture](https://github.com/emdash-cms/emdash/tree/main/docs) — no database access, no filesystem access, only declared capabilities.
 
 ## Install
 
@@ -162,6 +164,13 @@ For now, install into your existing EmDash project:
 ```bash
 npm install emdash-fora
 ```
+
+## Related
+
+- [EmDash CMS](https://emdashcms.com/) — Serverless WordPress successor, built on Astro + Cloudflare
+- [EmDash on GitHub](https://github.com/emdash-cms/emdash) — Source code, docs, contributing
+- [Fora](https://giga.mobile) — Embeddable comment system for any platform
+- [Fora Adapters](https://github.com/giga-mobile/fora) — Framework integrations (Astro, Jekyll, Hugo, Eleventy)
 
 ## License
 

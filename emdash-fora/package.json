@@ -14,13 +14,20 @@
   "keywords": [
     "emdash",
     "emdash-plugin",
+    "emdash-cms",
+    "emdash-comments",
     "astro",
+    "astro-integration",
     "comments",
     "fora",
     "giga",
     "cloudflare",
+    "cloudflare-workers",
     "discussion",
-    "cms"
+    "cms",
+    "wordpress-alternative",
+    "serverless-cms",
+    "portable-text"
   ],
   "peerDependencies": {
     "emdash": ">=0.1.0",
