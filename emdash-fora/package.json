@@ -1,0 +1,36 @@
+{
+  "name": "emdash-fora",
+  "version": "0.1.0",
+  "description": "Fora comments plugin for EmDash — the fastest embeddable comment system, sandboxed and secure.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./astro": "./src/ForaComments.astro"
+  },
+  "files": [
+    "src/"
+  ],
+  "keywords": [
+    "emdash",
+    "emdash-plugin",
+    "astro",
+    "comments",
+    "fora",
+    "giga",
+    "cloudflare",
+    "discussion",
+    "cms"
+  ],
+  "peerDependencies": {
+    "emdash": ">=0.1.0",
+    "astro": "^4.0.0 || ^5.0.0 || ^6.0.0"
+  },
+  "homepage": "https://giga.mobile",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/giga-mobile/fora"
+  },
+  "license": "MIT",
+  "author": "Giga Mobile"
+}

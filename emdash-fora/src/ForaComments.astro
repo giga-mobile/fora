@@ -1,0 +1,173 @@
+---
+/**
+ * ForaComments — Astro component for embedding Fora comments in EmDash themes.
+ *
+ * This component can be used directly in EmDash theme templates
+ * as an alternative to the plugin hook injection.
+ *
+ * Usage in an EmDash theme:
+ *   import { ForaComments } from 'emdash-fora/astro';
+ *   <ForaComments siteKey="your-site-key" />
+ */
+
+export interface Props {
+  /** Your Fora site key (required) */
+  siteKey: string;
+  /** Page identifier — defaults to Astro.url.pathname */
+  pageId?: string;
+  /** Page title — defaults to document.title at runtime */
+  pageTitle?: string;
+  /** Page URL — defaults to canonical URL */
+  pageUrl?: string;
+  /** Theme: 'auto' | 'light' | 'dark' */
+  theme?: 'auto' | 'light' | 'dark';
+  /** Container element ID */
+  containerId?: string;
+  /** Fora API origin — defaults to https://giga.mobile */
+  origin?: string;
+  /** Comma-separated feature flags */
+  features?: string;
+  /** Fetch comment count at build time for SSR badge */
+  buildCount?: boolean;
+  /** Custom CSS class on the container */
+  class?: string;
+  /** Accent color override */
+  accent?: string;
+  /** Background color override */
+  bg?: string;
+  /** Surface color override */
+  surface?: string;
+  /** Text color override */
+  text?: string;
+  /** Font override */
+  font?: string;
+  /** Border radius override */
+  radius?: string;
+}
+
+const {
+  siteKey,
+  pageId,
+  pageTitle,
+  pageUrl,
+  theme = 'auto',
+  containerId = 'fora-comments',
+  origin = 'https://giga.mobile',
+  features = '',
+  buildCount = false,
+  class: className = '',
+  accent,
+  bg,
+  surface,
+  text,
+  font,
+  radius,
+} = Astro.props;
+
+const resolvedPageId = pageId || Astro.url.pathname + Astro.url.search;
+const resolvedPageUrl = pageUrl || Astro.url.href;
+
+// Build-time count fetch (SSR-safe)
+let commentCount: number | null = null;
+if (buildCount) {
+  try {
+    const countUrl = `${origin}/api/embed/count?site_key=${encodeURIComponent(siteKey)}&page_id=${encodeURIComponent(resolvedPageId)}`;
+    const res = await fetch(countUrl);
+    if (res.ok) {
+      const data = await res.json();
+      commentCount = typeof data.count === 'number' ? data.count : null;
+    }
+  } catch {
+    // Best-effort: if fetch fails, render without count
+  }
+}
+---
+
+<div
+  id={containerId}
+  class={`fora-comments-root ${className}`.trim()}
+  data-fora-site-key={siteKey}
+  data-fora-page-id={resolvedPageId}
+  data-fora-origin={origin}
+>
+  {
+    commentCount !== null && (
+      <div class="fora-count-badge" aria-label={`${commentCount} comments`}>
+        💬 {commentCount} comment{commentCount === 1 ? '' : 's'}
+      </div>
+    )
+  }
+</div>
+
+<script
+  is:inline
+  define:vars={{
+    siteKey,
+    resolvedPageId,
+    resolvedPageUrl,
+    pageTitle,
+    theme,
+    containerId,
+    origin,
+    features,
+    accent,
+    bg,
+    surface,
+    text,
+    font,
+    radius,
+  }}
+>
+  (function () {
+    function initFora() {
+      var container = document.getElementById(containerId);
+      if (!container) return;
+
+      // Skip if already initialized (direct mode uses shadow root)
+      if (container.shadowRoot) return;
+
+      var script = document.createElement('script');
+      script.src = origin + '/embed.js';
+      script.setAttribute('data-site-key', siteKey);
+      script.setAttribute('data-page-id', resolvedPageId);
+      script.setAttribute('data-page-url', resolvedPageUrl);
+      if (pageTitle) script.setAttribute('data-page-title', pageTitle);
+      script.setAttribute('data-theme', theme);
+      script.setAttribute('data-container-id', containerId);
+      script.setAttribute('data-mode', 'direct');
+      if (features) script.setAttribute('data-features', features);
+      if (accent) script.setAttribute('data-accent', accent);
+      if (bg) script.setAttribute('data-bg', bg);
+      if (surface) script.setAttribute('data-surface', surface);
+      if (text) script.setAttribute('data-text', text);
+      if (font) script.setAttribute('data-font', font);
+      if (radius) script.setAttribute('data-radius', radius);
+
+      // Remove count badge once widget loads
+      var badge = container.querySelector('.fora-count-badge');
+      if (badge) badge.style.display = 'none';
+
+      container.appendChild(script);
+    }
+
+    function cleanupFora() {
+      var container = document.getElementById(containerId);
+      if (container && container.shadowRoot) {
+        var parent = container.parentNode;
+        var clone = container.cloneNode(false);
+        clone.innerHTML = '';
+        parent.replaceChild(clone, container);
+      }
+    }
+
+    // Support Astro View Transitions
+    document.addEventListener('astro:before-swap', cleanupFora);
+    document.addEventListener('astro:page-load', initFora);
+    // Fallback for non-View-Transition pages
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFora);
+    } else {
+      initFora();
+    }
+  })();
+</script>

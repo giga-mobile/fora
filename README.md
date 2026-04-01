@@ -116,6 +116,7 @@ Fires on `comment.created` with HMAC-SHA256 signature (`X-Fora-Signature` header
 | `hugo-fora` | Hugo Modules | Ready to publish |
 | `jekyll-fora` | RubyGems | Ready to publish |
 | `@fora/eleventy-plugin-fora` | npm | Ready to publish |
+| `emdash-fora` | npm | Ready to publish |
 
 ## Architecture
 
@@ -134,6 +135,11 @@ Fires on `comment.created` with HMAC-SHA256 signature (`X-Fora-Signature` header
 ```
 
 Each adapter is a **thin wrapper** (50-100 lines) translating framework conventions into the core API. The heavy lifting lives in one place.
+
+## License
+
+MIT
+ore API. The heavy lifting lives in one place.
 
 ## License
 
